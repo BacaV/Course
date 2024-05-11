@@ -1,4 +1,4 @@
 {
-	'title': 'Article 1',
-	'content': 'This is MongoDB course.'
+	"title": "Article 1",
+	"content": "This is MongoDB course."
 }

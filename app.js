@@ -19,15 +19,68 @@ const articleSchema = {
 
 const Article = mongoose.model("Article", articleSchema);
 
-app.get("/articles", function(req, res){
+app.route("/articles")
+    .get(async(req, res)=>{
+        try{
+            
+            let result = await Article.find({});
+            res.send(result);
 
-    async function findAll(){
-        let result = await Article.find({});
+        }catch(err){
+
+            console.log(err);
+
+        }
+    })
+    .post(async(req, res)=>{
+        try{
+
+            const newArticle = new Article ({
+                title : req.body.title,
+                content : req.body.content
+            });
+        
+            newArticle.save();
+        
+            res.send("added");
+
+        }catch(err){
+
+            console.log(err);
+
+        }
+    })
+    .delete(async(req, res)=>{
+        try{        
+
+            let result = await Article.deleteMany({});
+            res.send(result);
+
+        }catch(err){
+
+            console.log(err);
+
+        }
+    });
+
+
+    app.route("/articles/:articleTitle")
+    .get(async(req,res)=>{
+        try{
+
+        let params = req.params.articleTitle
+
+        let result = await Article.findOne({title: params});
         res.send(result);
-    }
-    
-    findAll();
-})
+        
+        
+        }catch(err){
+        console.log(err)
+    }});
+
+
+
+
 
 app.listen(3000, function(){
     console.log('Server started!');
