@@ -76,7 +76,26 @@ app.route("/articles")
         
         }catch(err){
         console.log(err)
-    }});
+    }})
+    .put(async(req, res) => {
+        try{
+
+            let params = req.params.articleTitle
+
+            await Article.findOneAndUpdate(
+                {title: params},
+                {title: req.body.title, content: req.body.content},
+                {overwrite: true}
+            );
+
+            res.send("Updated article successfully.");
+
+        } catch(err){
+
+            console.log(err);
+
+        }
+    });
 
 
 
