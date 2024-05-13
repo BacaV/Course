@@ -95,6 +95,39 @@ app.route("/articles")
             console.log(err);
 
         }
+    })
+    .patch(async(req, res) => {
+       try{
+
+        await Article.findOneAndUpdate(
+            {title: req.params.articleTitle},
+            {$set: req.body}
+        );
+
+        res.send("Updated article successfully.");
+
+       } catch(err){
+
+        console.log(err);
+
+       }
+        
+
+    })
+    .delete(async(req, res) => {
+        try{
+
+            await Article.findOneAndDelete(
+                {title: req.params.articleTitle}
+            );
+
+            res.send("Article deleted sucessfully.");
+
+        } catch(err){
+
+            console.log(err);
+
+        }
     });
 
 
